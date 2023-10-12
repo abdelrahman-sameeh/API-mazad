@@ -52,6 +52,7 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
 
   if (event.type === "checkout.session.completed") {
     //  Create order
+    console.log(event.data.object);
     console.log('completed successfully');
   }
 
