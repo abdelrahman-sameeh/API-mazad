@@ -15,9 +15,17 @@ const chatRoutes = require("./routes/chatRoutes");
 const orderRoutes = require("./routes/orderRoute");
 
 const { Server } = require("socket.io");
+const { webhookCheckout } = require("./services/orderService");
 
 // connect with database
 connectDB();
+
+// Checkout webhook
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  webhookCheckout
+)
 
 app.use(cors());
 app.use(express.json());

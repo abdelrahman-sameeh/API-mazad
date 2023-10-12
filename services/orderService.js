@@ -31,3 +31,29 @@ exports.getCheckoutSession = expressAsyncHandler(async (req, res, next) => {
 
   res.status(200).json({ status: "success", session });
 });
+
+// @desc    This webhook will run when stripe payment success paid
+// @route   POST /webhook-checkout
+// @access  Protected/User
+exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
+  const sig = req.headers["stripe-signature"];
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+  } catch (err) {
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  if (event.type === "checkout.session.completed") {
+    //  Create order
+    console.log('completed successfully');
+  }
+
+  res.status(200).json({ received: true });
+});
