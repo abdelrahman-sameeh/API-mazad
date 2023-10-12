@@ -31,7 +31,7 @@ exports.createProductValidator = [
     .withMessage("start time is required")
     .custom((value) => {
       const date = new Date(value).getTime();
-      const dateNow = Date.now();
+      const dateNow = new Date(Date.now()).getTime();
       if (date < dateNow) {
         throw "Time must be greater than date now";
       }

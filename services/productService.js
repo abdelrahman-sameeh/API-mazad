@@ -36,6 +36,7 @@ exports.updateSpecificProduct = updateOneItem(Product, "product");
 exports.deleteProduct = deleteOneItem(Product, "product");
 
 exports.setChatIdInBody = expressAsyncHandler(async (req, res, next) => {
+  req.body.biggestValue = {};
   req.body.biggestValue.content = req.body.firstPrice;
   const chat = new Chat();
   await chat.save();
