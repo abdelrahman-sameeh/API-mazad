@@ -65,6 +65,7 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
   if (event.type === "checkout.session.completed") {
     //  Create order
     const data = JSON.parse(event.data.object.client_reference_id);
+    console.log(data);
     const order = await Order.findOne({
       user: data.userId,
       product: data.productId,
