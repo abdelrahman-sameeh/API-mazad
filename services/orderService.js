@@ -61,8 +61,16 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
 
   if (event.type === "checkout.session.completed") {
     //  Create order
-    console.log(event.data.object);
-    console.log("completed successfully");
+    const order = await Order.create({
+      user: req.user._id,
+      product: event.data.object.client_reference_id,
+      price: event.data.object.amount_subtotal,
+    });
+    if (order) {
+      await Product.findByIdAndUpdate(event.data.object.client_reference_id, {
+        isPaid: true,
+      });
+    }
   }
 
   res.status(200).json({ received: true });
