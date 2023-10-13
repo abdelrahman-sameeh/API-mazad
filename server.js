@@ -22,12 +22,16 @@ connectDB();
 
 // Checkout webhook
 app.post(
-  '/webhook-checkout',
-  express.raw({ type: 'application/json' }),
+  "/webhook-checkout",
+  express.raw({ type: "application/json" }),
   webhookCheckout
-)
+);
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://master--mazad.netlify.app",
+  })
+);
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
@@ -42,7 +46,7 @@ app.use("/api/v1", orderRoutes);
 const io = new Server(server, {
   cors: {
     // origin: "http://localhost:3000",
-    origin: "https://master--mazad.netlify.app/",
+    origin: "https://master--mazad.netlify.app",
   },
 });
 
