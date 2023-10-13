@@ -77,14 +77,10 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
         price: event.data.object.amount_subtotal,
       });
       await newOrder.save();
-      const product = await Product.findOneAndUpdate(
-        { _id: event.data.object.data.productId },
-        {
-          isPaid: true,
-        },
-        { new: true }
-      );
+      const product = await Product.findById(event.data.object.data.productId);
       console.log(product);
+      product.isPaid = true;
+      await product.save();
     }
   }
 
