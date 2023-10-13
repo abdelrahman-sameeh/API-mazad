@@ -36,9 +36,9 @@ exports.getCheckoutSession = expressAsyncHandler(async (req, res, next) => {
     }`,
     customer_email: req.user.email,
     client_reference_id: req.params.productId,
-    metadata: [{
+    metadata: {
       userId: req.user._id
-    }]
+    }
   });
 
   res.status(200).json({ status: "success", session });
