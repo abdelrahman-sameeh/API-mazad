@@ -30,7 +30,7 @@ exports.getCheckoutSession = expressAsyncHandler(async (req, res, next) => {
       },
     ],
     mode: "payment",
-    success_url: `${req.protocol}://${req.get("host")}/api/v1/mySales`,
+    success_url: `${req.protocol}://${req.get("host")}`,
     cancel_url: `${req.protocol}://${req.get("host")}/api/v1/mazad/${
       product.chatId
     }`,
@@ -65,14 +65,12 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
   if (event.type === "checkout.session.completed") {
     //  Create order
     const data = JSON.parse(event.data.object.client_reference_id);
-    console.log(event.data.object);
     const order = new Order({
       user: data.userId,
       product: data.productId,
       price: event.data.object.amount_subtotal,
     });
     await order.save();
-    console.log(order);
     if (order) {
       await Product.findByIdAndUpdate(event.data.object.client_reference_id, {
         isPaid: true,
