@@ -11,6 +11,11 @@ exports.setFilterObj = (req, res, next) => {
 
 exports.getLoggedUserOrders = handleFactory.getListOfItems(Order, "Order");
 
+exports.getSpecificOrder = expressAsyncHandler(async (req, res, next) => {
+  const order = await Order.findOne({ product: req.params.id }, { user: 1 });
+  res.status(200).json({ data: order });
+});
+
 // @access   create stripe session
 // @route   /api/v1/checkout-session/:productId
 exports.getCheckoutSession = expressAsyncHandler(async (req, res, next) => {
@@ -65,7 +70,6 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
   if (event.type === "checkout.session.completed") {
     //  Create order
     const data = JSON.parse(event.data.object.client_reference_id);
-    console.log(data);
     const order = await Order.findOne({
       user: data.userId,
       product: data.productId,
@@ -77,10 +81,6 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
         price: event.data.object.amount_subtotal,
       });
       await newOrder.save();
-      const product = await Product.findById(event.data.object.data.productId);
-      console.log(product);
-      product.isPaid = true;
-      await product.save();
     }
   }
 

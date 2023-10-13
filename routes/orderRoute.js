@@ -1,9 +1,11 @@
 const express = require("express");
 const { protect, allowTo } = require("../services/authService");
-const { getCheckoutSession, getLoggedUserOrders, setFilterObj } = require("../services/orderService");
+const { getCheckoutSession, getLoggedUserOrders, setFilterObj, getSpecificOrder } = require("../services/orderService");
 const router = express.Router();
 
 router.get('/orders', protect, allowTo('user'), setFilterObj, getLoggedUserOrders)
+
+router.get('/orders/:id', getSpecificOrder)
 
 router.get(
   "/checkout-session/:productId",

@@ -19,10 +19,6 @@ const productSchema = mongoose.Schema({
   startTime: Date,
   endTime: Date,
   phoneNumber: String,
-  isPaid: {
-    type: Boolean,
-    default: false,
-  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
