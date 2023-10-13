@@ -66,6 +66,7 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
       product: event.data.object.client_reference_id,
       price: event.data.object.amount_subtotal,
     });
+    console.log(order);
     if (order) {
       await Product.findByIdAndUpdate(event.data.object.client_reference_id, {
         isPaid: true,
