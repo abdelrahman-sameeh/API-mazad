@@ -29,7 +29,8 @@ app.post(
 
 app.use(
   cors({
-    origin: "https://master--mazad.netlify.app",
+    origin: "http://localhost:3000",
+    // origin: "https://master--mazad.netlify.app",
   })
 );
 app.use(express.json());
@@ -45,8 +46,8 @@ app.use("/api/v1", orderRoutes);
 
 const io = new Server(server, {
   cors: {
-    // origin: "http://localhost:3000",
-    origin: "https://master--mazad.netlify.app",
+    origin: "http://localhost:3000",
+    // origin: "https://master--mazad.netlify.app",
   },
 });
 
