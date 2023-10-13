@@ -10,7 +10,6 @@ module.exports = (io) => {
         { whoWon },
         { new: true }
       );
-      socket.emit("setWonSuccessfully");
     });
   });
 };

@@ -19,6 +19,11 @@ const orderSchema = mongoose.Schema(
   { timestamps: true }
 );
 
+orderSchema.pre(/^find/, function(next){
+  this.populate('product')
+  next()
+})
+
 const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;

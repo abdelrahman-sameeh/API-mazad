@@ -1,7 +1,15 @@
 const expressAsyncHandler = require("express-async-handler");
 const Product = require("../model/productModel");
-
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const handleFactory = require("./handleFactory");
+const Order = require("../model/orderModel");
+
+exports.setFilterObj = (req, res, next) => {
+  req.body.filter = { user: req.user._id };
+  next();
+};
+
+exports.getLoggedUserOrders = handleFactory.getListOfItems(Order, "Order");
 
 // @access   create stripe session
 // @route   /api/v1/checkout-session/:productId
@@ -53,7 +61,7 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
   if (event.type === "checkout.session.completed") {
     //  Create order
     console.log(event.data.object);
-    console.log('completed successfully');
+    console.log("completed successfully");
   }
 
   res.status(200).json({ received: true });
