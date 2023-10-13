@@ -30,7 +30,7 @@ exports.getCheckoutSession = expressAsyncHandler(async (req, res, next) => {
       },
     ],
     mode: "payment",
-    success_url: `${req.protocol}://${req.get("host")}/api/v1/orders`,
+    success_url: `${req.protocol}://${req.get("host")}/api/v1/mySales`,
     cancel_url: `${req.protocol}://${req.get("host")}/api/v1/mazad/${
       product.chatId
     }`,
