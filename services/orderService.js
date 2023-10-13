@@ -27,9 +27,6 @@ exports.getCheckoutSession = expressAsyncHandler(async (req, res, next) => {
             name: req.user.name,
           },
         },
-        metadata: {
-          userId: req.user._id
-        }
       },
     ],
     mode: "payment",
@@ -39,7 +36,7 @@ exports.getCheckoutSession = expressAsyncHandler(async (req, res, next) => {
     }`,
     customer_email: req.user.email,
     client_reference_id: req.params.productId,
-    
+    metadata: "test",
   });
 
   res.status(200).json({ status: "success", session });
