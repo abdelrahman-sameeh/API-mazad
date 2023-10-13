@@ -41,8 +41,8 @@ app.use("/api/v1", orderRoutes);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
-    // origin: "https://65279589e84c8800087acffb--mazad.netlify.app",
+    // origin: "http://localhost:3000",
+    origin: "https://65279589e84c8800087acffb--mazad.netlify.app",
   },
 });
 
