@@ -35,10 +35,8 @@ exports.getCheckoutSession = expressAsyncHandler(async (req, res, next) => {
       },
     ],
     mode: "payment",
-    success_url: `${req.protocol}://${req.get("host")}`,
-    cancel_url: `${req.protocol}://${req.get("host")}/api/v1/mazad/${
-      product.chatId
-    }`,
+    success_url: `https://master--mazad.netlify.app`,
+    cancel_url: `https://master--mazad.netlify.app`,
     customer_email: req.user.email,
     client_reference_id: JSON.stringify({
       productId: req.params.productId,
