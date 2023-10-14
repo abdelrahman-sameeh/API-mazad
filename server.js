@@ -28,9 +28,10 @@ app.post(
 );
 
 app.use(
-  cors({
-    origin: ["https://master--mazad.netlify.app", "http://localhost:3000"],
-  })
+  cors()
+  //   {
+  //   origin: ["https://master--mazad.netlify.app", "http://localhost:3000"],
+  // }
 );
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -45,7 +46,7 @@ app.use("/api/v1", orderRoutes);
 
 const io = new Server(server, {
   cors: {
-    origin: ["https://master--mazad.netlify.app", "http://localhost:3000"]
+    origin: ["https://master--mazad.netlify.app", "http://localhost:3000"],
   },
 });
 
